@@ -1,1 +1,25 @@
 project_id = "pnxbqdwlqgcukwlfgclc"
+
+[functions.transactions]
+verify_jwt = true
+
+[functions.bills]
+verify_jwt = true
+
+[functions.reports]
+verify_jwt = true
+
+[functions.settings]
+verify_jwt = true
+
+[functions.inventory]
+verify_jwt = true
+
+[functions.users]
+verify_jwt = true
+
+[functions.currency]
+verify_jwt = false
+
+[functions.dashboard]
+verify_jwt = true
