@@ -2,26 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* BizTrack Design System - Light Pastel Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    /* BizTrack Color Palette */
+    --biztrack-cream: 49 100% 93.5%; /* #FFF9D0 */
+    --biztrack-light-blue: 190 100% 90.2%; /* #CAF4FF */
+    --biztrack-accent-blue: 199 100% 81%; /* #A0DEFF */
+    --biztrack-primary-blue: 207 100% 69.6%; /* #5AB2FF */
+    
+    /* Semantic color mapping */
+    --background: var(--biztrack-cream);
     --foreground: 222.2 84% 4.9%;
 
-    --card: 0 0% 100%;
+    --card: var(--biztrack-light-blue);
     --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 0 0% 100%;
+    --popover: var(--biztrack-light-blue);
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--biztrack-primary-blue);
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: var(--biztrack-accent-blue);
+    --secondary-foreground: 222.2 84% 4.9%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;

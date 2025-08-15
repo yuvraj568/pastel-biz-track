@@ -19,6 +19,12 @@ export default {
 		},
 		extend: {
 			colors: {
+				biztrack: {
+					cream: 'hsl(var(--biztrack-cream))',
+					'light-blue': 'hsl(var(--biztrack-light-blue))',
+					'accent-blue': 'hsl(var(--biztrack-accent-blue))',
+					'primary-blue': 'hsl(var(--biztrack-primary-blue))',
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

@@ -1,73 +1,207 @@
-# Welcome to your Lovable project
+# BizTrack - Financial Management Dashboard
 
-## Project info
+A modern, production-ready financial tracking application built with React, TypeScript, and Tailwind CSS. Features a beautiful pastel design with comprehensive business management capabilities.
 
-**URL**: https://lovable.dev/projects/afe97780-ab91-43fa-8177-56b998332798
+## 🎨 Design & Features
 
-## How can I edit this code?
+- **Light Pastel Color Palette**: Cream (#FFF9D0), Light Blue (#CAF4FF), Accent Blue (#A0DEFF), Primary Blue (#5AB2FF)
+- **Modern UI**: Clean, minimalist design with soft rounded corners and subtle shadows
+- **Responsive Design**: Works perfectly on desktop and mobile devices
+- **Accessibility**: ARIA-compliant with semantic HTML and keyboard navigation support
 
-There are several ways of editing your application.
+## 🚀 Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18+ with TypeScript
+- **Build Tool**: Vite for fast development and optimized builds
+- **Styling**: Tailwind CSS with custom design system tokens
+- **Charts**: Recharts for beautiful data visualizations
+- **Icons**: Lucide React for consistent iconography
+- **Routing**: React Router DOM for navigation
+- **State Management**: React hooks for local state management
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/afe97780-ab91-43fa-8177-56b998332798) and start prompting.
+## 📁 Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/           # Reusable UI components
+│   ├── CurrencySelector.tsx
+│   ├── ExpensePie.tsx
+│   ├── InventoryCard.tsx
+│   ├── KPICard.tsx
+│   ├── Navbar.tsx
+│   ├── ProfitChart.tsx
+│   ├── ReportsGrid.tsx
+│   ├── RoleBadge.tsx
+│   ├── SettingsPanel.tsx
+│   ├── Sidebar.tsx
+│   ├── TransactionsTable.tsx
+│   └── UploadBillsCard.tsx
+├── hooks/               # Custom React hooks
+│   ├── useMockData.ts
+│   └── useFileUpload.ts
+├── lib/                 # Utility functions
+│   ├── accessibility.ts
+│   ├── currency.ts
+│   └── utils.ts
+├── pages/               # Page components
+│   ├── Bills.tsx
+│   ├── Dashboard.tsx
+│   ├── Inventory.tsx
+│   ├── Reports.tsx
+│   ├── Settings.tsx
+│   ├── Transactions.tsx
+│   └── Users.tsx
+├── types/               # TypeScript type definitions
+│   └── transaction.ts
+└── styles/              # Global styles
+    └── index.css
 ```
 
-**Edit a file directly in GitHub**
+## 🏃‍♂️ Getting Started
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Prerequisites
 
-**Use GitHub Codespaces**
+- Node.js 16+ 
+- npm or yarn
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Installation
 
-## What technologies are used for this project?
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-This project is built with:
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+4. Open your browser and navigate to `http://localhost:5173`
 
-## How can I deploy this project?
+### Available Scripts
 
-Simply open [Lovable](https://lovable.dev/projects/afe97780-ab91-43fa-8177-56b998332798) and click on Share -> Publish.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-## Can I connect a custom domain to my Lovable project?
+## 📊 Core Features
 
-Yes, you can!
+### Dashboard
+- **KPI Cards**: Total Revenue, Total Expenses, Total Profit with color-coded design
+- **Profit Trend Chart**: Interactive line chart showing revenue vs expenses over time
+- **Expenses Breakdown**: Pie chart with category-wise expense distribution
+- **Recent Transactions**: Table with transaction details and type badges
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Transactions Management
+- **Full Transaction Table**: Complete transaction history with filtering and search
+- **Advanced Filtering**: Filter by type, account, category, and date range
+- **Real-time Search**: Instant search across all transaction fields
+- **Export Capabilities**: Ready for CSV/PDF export functionality
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### Bills & Receipt Processing
+- **Drag & Drop Upload**: Easy file upload with support for PDF, JPG, PNG
+- **AI-Powered Parsing**: Mock AI parsing shows vendor, date, amount, and category extraction
+- **Bulk Processing**: Handle multiple receipts simultaneously
+- **Data Validation**: Automatic data validation and error handling
+
+### Reports & Analytics
+- **Financial Reports**: P&L, Cash Flow, Balance Sheet generation
+- **Tax Reports**: GST/VAT summary calculations
+- **Category Analysis**: Expense and income breakdown by categories
+- **Export Options**: Multiple export formats for accountants and stakeholders
+
+### Settings & Administration
+- **AI Features**: Toggle AI expense categorization
+- **Integrations**: Inventory system linking and synchronization
+- **User Roles**: Admin, Accountant, and Employee role management
+- **Access Control**: Granular permissions system
+
+### Inventory Integration
+- **Real-time Sync**: Connect with external inventory systems
+- **COGS Calculation**: Automatic Cost of Goods Sold tracking
+- **Stock Monitoring**: Integration status and sync controls
+- **Data Consistency**: Ensure financial and inventory data alignment
+
+## 🎯 Design System
+
+The application uses a comprehensive design system built with Tailwind CSS:
+
+### Color Tokens
+- `biztrack-cream`: Background color (#FFF9D0)
+- `biztrack-light-blue`: Panel backgrounds (#CAF4FF)
+- `biztrack-accent-blue`: Accent elements (#A0DEFF)
+- `biztrack-primary-blue`: Primary actions (#5AB2FF)
+
+### Component Variants
+- **KPI Cards**: Default and accent variants for different metrics
+- **Buttons**: Primary, secondary, and outline variants
+- **Badges**: Role-based styling for user types and transaction categories
+- **Tables**: Consistent styling with hover states and proper contrast
+
+## 🔧 Customization
+
+### Adding New Features
+1. Create new components in `src/components/`
+2. Add new pages in `src/pages/`
+3. Update routing in `src/App.tsx`
+4. Add new types in `src/types/`
+
+### Styling Guidelines
+- Use design system tokens defined in `tailwind.config.ts`
+- Follow the established color palette
+- Maintain consistent spacing and typography
+- Ensure accessibility standards are met
+
+### Mock Data
+The application includes comprehensive mock data for development:
+- Transaction records with various types and categories
+- Chart data for visualizations
+- User management data
+- Bill parsing examples
+
+## 📱 Responsive Design
+
+The application is fully responsive with:
+- Mobile-first approach
+- Collapsible sidebar for smaller screens
+- Adaptive chart sizing
+- Touch-friendly interface elements
+- Optimized data tables for mobile viewing
+
+## ♿ Accessibility
+
+- **Semantic HTML**: Proper use of nav, main, header, aside elements
+- **ARIA Labels**: Screen reader support for interactive elements
+- **Keyboard Navigation**: Full keyboard accessibility
+- **Color Contrast**: WCAG compliant color combinations
+- **Focus Management**: Visible focus indicators and logical tab order
+
+## 🚀 Deployment
+
+The application is production-ready and can be deployed to:
+- Vercel (recommended for Vite projects)
+- Netlify
+- AWS S3 + CloudFront
+- Traditional web servers
+
+Build command: `npm run build`
+Output directory: `dist/`
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Follow the existing code style and component patterns
+4. Add appropriate TypeScript types
+5. Test your changes thoroughly
+6. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+**BizTrack** - Making financial management beautiful and accessible.
