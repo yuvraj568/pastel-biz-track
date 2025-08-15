@@ -14,7 +14,207 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bills: {
+        Row: {
+          created_at: string
+          file_path: string
+          id: string
+          original_filename: string
+          parsed_data: Json | null
+          status: string
+          updated_at: string
+          uploaded_by: string
+        }
+        Insert: {
+          created_at?: string
+          file_path: string
+          id?: string
+          original_filename: string
+          parsed_data?: Json | null
+          status?: string
+          updated_at?: string
+          uploaded_by: string
+        }
+        Update: {
+          created_at?: string
+          file_path?: string
+          id?: string
+          original_filename?: string
+          parsed_data?: Json | null
+          status?: string
+          updated_at?: string
+          uploaded_by?: string
+        }
+        Relationships: []
+      }
+      currency_rates: {
+        Row: {
+          base_currency: string
+          id: string
+          rate: number
+          target_currency: string
+          updated_at: string
+        }
+        Insert: {
+          base_currency: string
+          id?: string
+          rate: number
+          target_currency: string
+          updated_at?: string
+        }
+        Update: {
+          base_currency?: string
+          id?: string
+          rate?: number
+          target_currency?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      inventory_items: {
+        Row: {
+          cost: number
+          created_at: string
+          id: string
+          linked_status: boolean
+          name: string
+          quantity: number
+          updated_at: string
+        }
+        Insert: {
+          cost: number
+          created_at?: string
+          id?: string
+          linked_status?: boolean
+          name: string
+          quantity?: number
+          updated_at?: string
+        }
+        Update: {
+          cost?: number
+          created_at?: string
+          id?: string
+          linked_status?: boolean
+          name?: string
+          quantity?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id: string
+          name: string
+          role?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          data: Json
+          generated_at: string
+          generated_by: string
+          id: string
+          type: string
+        }
+        Insert: {
+          data: Json
+          generated_at?: string
+          generated_by: string
+          id?: string
+          type: string
+        }
+        Update: {
+          data?: Json
+          generated_at?: string
+          generated_by?: string
+          id?: string
+          type?: string
+        }
+        Relationships: []
+      }
+      settings: {
+        Row: {
+          id: string
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          id?: string
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          account: string
+          amount: number
+          category: string
+          created_at: string
+          created_by: string
+          currency: string
+          date: string
+          description: string | null
+          id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          account: string
+          amount: number
+          category: string
+          created_at?: string
+          created_by: string
+          currency?: string
+          date: string
+          description?: string | null
+          id?: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          account?: string
+          amount?: number
+          category?: string
+          created_at?: string
+          created_by?: string
+          currency?: string
+          date?: string
+          description?: string | null
+          id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
