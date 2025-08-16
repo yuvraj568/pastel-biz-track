@@ -6,8 +6,6 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Currency } from '@/types/transaction';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import { useTransactions } from '@/hooks/useTransactions';
-import { toast } from 'sonner';
 
 interface NewTransactionModalProps {
   open: boolean;
@@ -16,8 +14,6 @@ interface NewTransactionModalProps {
 
 export const NewTransactionModal = ({ open, onOpenChange }: NewTransactionModalProps) => {
   const { selectedCurrency } = useCurrency();
-  const { addTransaction } = useTransactions();
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     type: '',
     account: '',
@@ -26,41 +22,17 @@ export const NewTransactionModal = ({ open, onOpenChange }: NewTransactionModalP
     description: ''
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.type || !formData.account || !formData.category || !formData.amount) {
-      toast.error('Please fill in all required fields');
-      return;
-    }
-
-    setLoading(true);
-    
-    const result = await addTransaction({
-      type: formData.type as 'Income' | 'Expense' | 'Transfer',
-      account: formData.account,
-      category: formData.category,
-      amount: parseFloat(formData.amount),
-      currency: selectedCurrency,
-      description: formData.description,
-      date: new Date().toLocaleDateString('en-GB')
+    console.log('Creating new transaction:', formData);
+    onOpenChange(false);
+    setFormData({
+      type: '',
+      account: '',
+      category: '',
+      amount: '',
+      description: ''
     });
-
-    if (result.success) {
-      toast.success('Transaction added successfully!');
-      onOpenChange(false);
-      setFormData({
-        type: '',
-        account: '',
-        category: '',
-        amount: '',
-        description: ''
-      });
-    } else {
-      toast.error('Failed to add transaction');
-    }
-    
-    setLoading(false);
   };
 
   return (
@@ -121,12 +93,10 @@ export const NewTransactionModal = ({ open, onOpenChange }: NewTransactionModalP
             />
           </div>
           <div className="flex justify-end space-x-2">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
-              {loading ? 'Creating...' : 'Create Transaction'}
-            </Button>
+            <Button type="submit">Create Transaction</Button>
           </div>
         </form>
       </DialogContent>

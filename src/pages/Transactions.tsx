@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Search, Filter, ArrowUpDown } from 'lucide-react';
-import { useTransactions } from '@/hooks/useTransactions';
+import { useMockData } from '@/hooks/useMockData';
 import { TransactionsTable } from '@/components/TransactionsTable';
 
 export const Transactions = () => {
-  const { transactions, loading } = useTransactions();
+  const { transactions } = useMockData();
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredTransactions = transactions.filter(transaction =>
@@ -12,20 +12,6 @@ export const Transactions = () => {
     transaction.account.toLowerCase().includes(searchTerm.toLowerCase()) ||
     transaction.type.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  if (loading) {
-    return (
-      <div className="p-6">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Transactions</h1>
-          <div className="space-y-4 animate-pulse">
-            <div className="h-10 bg-gray-300 rounded-lg"></div>
-            <div className="h-64 bg-gray-300 rounded-lg"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="p-6">
