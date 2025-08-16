@@ -1,14 +1,22 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { ExpenseBreakdown } from '@/types/transaction';
+import { useCurrency } from '@/contexts/CurrencyContext';
+import { formatCurrency } from '@/lib/currency';
 
 interface ExpensePieProps {
   data: ExpenseBreakdown[];
 }
 
 export const ExpensePie = ({ data }: ExpensePieProps) => {
+  const { selectedCurrency } = useCurrency();
+
+  const formatTooltipValue = (value: number) => {
+    return formatCurrency(value, selectedCurrency);
+  };
+
   return (
     <div className="bg-biztrack-light-blue p-6 rounded-lg">
-      <h3 className="text-lg font-semibold text-gray-800 mb-4">Expenses Breakdown</h3>
+      <h3 className="text-lg font-semibold text-gray-800 mb-4">Expenses Breakdown ({selectedCurrency})</h3>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -26,6 +34,7 @@ export const ExpensePie = ({ data }: ExpensePieProps) => {
               ))}
             </Pie>
             <Tooltip 
+              formatter={(value: number) => [formatTooltipValue(value), 'Amount']}
               contentStyle={{ 
                 backgroundColor: '#CAF4FF', 
                 border: 'none', 

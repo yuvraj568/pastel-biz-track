@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Currency } from '@/types/transaction';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 export const CurrencySelector = () => {
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>('USD');
+  const { selectedCurrency, setSelectedCurrency } = useCurrency();
   const [isOpen, setIsOpen] = useState(false);
 
   const currencies: Currency[] = ['USD', 'INR', 'GBP'];

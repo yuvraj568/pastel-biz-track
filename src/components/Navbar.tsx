@@ -1,8 +1,11 @@
 import { Search, Plus } from 'lucide-react';
 import { RoleBadge } from './RoleBadge';
 import { CurrencySelector } from './CurrencySelector';
+import { NewTransactionModal } from './NewTransactionModal';
+import { useState } from 'react';
 
 export const Navbar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <header className="bg-white border-b border-gray-200 p-4">
       <div className="flex items-center justify-between">
@@ -23,12 +26,16 @@ export const Navbar = () => {
             />
           </div>
           
-          <button className="bg-biztrack-primary-blue text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors flex items-center space-x-2">
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="bg-biztrack-primary-blue text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors flex items-center space-x-2"
+          >
             <Plus className="w-4 h-4" />
             <span>New</span>
           </button>
         </div>
       </div>
+      <NewTransactionModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </header>
   );
 };

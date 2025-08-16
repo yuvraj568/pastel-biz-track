@@ -3,9 +3,11 @@ import { KPICard } from '@/components/KPICard';
 import { ProfitChart } from '@/components/ProfitChart';
 import { ExpensePie } from '@/components/ExpensePie';
 import { TransactionsTable } from '@/components/TransactionsTable';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 export const Dashboard = () => {
   const { kpiMetrics, chartData, expenseBreakdown, transactions } = useMockData();
+  const { selectedCurrency } = useCurrency();
 
   return (
     <div className="p-6 space-y-6">
@@ -14,17 +16,17 @@ export const Dashboard = () => {
         <KPICard 
           title="Total Revenue" 
           value={kpiMetrics.totalRevenue} 
-          currency="USD" 
+          currency={selectedCurrency} 
         />
         <KPICard 
           title="Total Expenses" 
           value={kpiMetrics.totalExpenses} 
-          currency="USD" 
+          currency={selectedCurrency} 
         />
         <KPICard 
           title="Total Profit" 
           value={kpiMetrics.totalProfit} 
-          currency="USD" 
+          currency={selectedCurrency} 
           variant="accent"
         />
       </div>
