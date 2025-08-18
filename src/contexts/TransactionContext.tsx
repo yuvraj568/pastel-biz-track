@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { Transaction, KPIMetrics, ChartDataPoint, ExpenseBreakdown } from '@/types/transaction';
 import { useMockData } from '@/hooks/useMockData';
+import { useCurrencyConverter } from '@/hooks/useCurrencyConverter';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 interface TransactionContextType {
   transactions: Transaction[];
@@ -30,6 +32,8 @@ export const TransactionProvider: React.FC<TransactionProviderProps> = ({ childr
   const mockData = useMockData();
   const [transactions, setTransactions] = useState<Transaction[]>(mockData.transactions);
   const [searchTerm, setSearchTerm] = useState('');
+  const { convertAmount } = useCurrencyConverter();
+  const { selectedCurrency } = useCurrency();
 
   const addTransaction = (newTransaction: Omit<Transaction, 'id'>) => {
     const transaction: Transaction = {
@@ -39,14 +43,14 @@ export const TransactionProvider: React.FC<TransactionProviderProps> = ({ childr
     setTransactions(prev => [transaction, ...prev]);
   };
 
-  // Calculate KPI metrics from current transactions
+  // Calculate KPI metrics from current transactions with currency conversion
   const kpiMetrics: KPIMetrics = {
     totalRevenue: transactions
       .filter(t => t.type === 'Income')
-      .reduce((sum, t) => sum + t.amount, 0),
+      .reduce((sum, t) => sum + convertAmount(t.amount, t.currency, selectedCurrency), 0),
     totalExpenses: transactions
       .filter(t => t.type === 'Expense')
-      .reduce((sum, t) => sum + t.amount, 0),
+      .reduce((sum, t) => sum + convertAmount(t.amount, t.currency, selectedCurrency), 0),
     totalProfit: 0
   };
   kpiMetrics.totalProfit = kpiMetrics.totalRevenue - kpiMetrics.totalExpenses;
@@ -61,10 +65,10 @@ export const TransactionProvider: React.FC<TransactionProviderProps> = ({ childr
     
     const revenue = monthTransactions
       .filter(t => t.type === 'Income')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + convertAmount(t.amount, t.currency, selectedCurrency), 0);
     const expenses = monthTransactions
       .filter(t => t.type === 'Expense')
-      .reduce((sum, t) => sum + t.amount, 0);
+      .reduce((sum, t) => sum + convertAmount(t.amount, t.currency, selectedCurrency), 0);
     
     return {
       ...month,
@@ -78,7 +82,8 @@ export const TransactionProvider: React.FC<TransactionProviderProps> = ({ childr
   transactions
     .filter(t => t.type === 'Expense')
     .forEach(t => {
-      expenseCategories[t.category] = (expenseCategories[t.category] || 0) + t.amount;
+      const convertedAmount = convertAmount(t.amount, t.currency, selectedCurrency);
+      expenseCategories[t.category] = (expenseCategories[t.category] || 0) + convertedAmount;
     });
 
   const colors = ['#5AB2FF', '#A0DEFF', '#CAF4FF', '#FFF9D0', '#E8F4FD'];

@@ -6,14 +6,14 @@ const supabase = createClient(
   Deno.env.get('SUPABASE_ANON_KEY') ?? ''
 )
 
-// Mock currency rates (in production, this would fetch from a real API)
+// Mock currency rates (as requested: 1 USD = 85 INR, 1 USD = 0.8 GBP)
 const mockRates = {
-  'USD-INR': 83.12,
-  'USD-GBP': 0.79,
-  'INR-USD': 0.012,
-  'INR-GBP': 0.0095,
-  'GBP-USD': 1.27,
-  'GBP-INR': 105.32,
+  'USD-INR': 85,
+  'USD-GBP': 0.8,
+  'INR-USD': 1/85,
+  'INR-GBP': 0.8/85,
+  'GBP-USD': 1/0.8,
+  'GBP-INR': 85/0.8,
 }
 
 async function fetchCurrencyRates() {
