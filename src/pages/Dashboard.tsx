@@ -1,12 +1,12 @@
-import { useMockData } from '@/hooks/useMockData';
 import { KPICard } from '@/components/KPICard';
 import { ProfitChart } from '@/components/ProfitChart';
 import { ExpensePie } from '@/components/ExpensePie';
 import { TransactionsTable } from '@/components/TransactionsTable';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { useTransactions } from '@/contexts/TransactionContext';
 
 export const Dashboard = () => {
-  const { kpiMetrics, chartData, expenseBreakdown, transactions } = useMockData();
+  const { kpiMetrics, chartData, expenseBreakdown, transactions } = useTransactions();
   const { selectedCurrency } = useCurrency();
 
   return (

@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CurrencyProvider } from "./contexts/CurrencyContext";
+import { TransactionProvider } from "./contexts/TransactionContext";
 import { Navbar } from "./components/Navbar";
 import { Sidebar } from "./components/Sidebar";
 import { Dashboard } from "./pages/Dashboard";
@@ -24,24 +25,26 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <CurrencyProvider>
-          <div className="min-h-screen bg-biztrack-cream w-full">
-            <Navbar />
-            <div className="flex w-full">
-              <Sidebar />
-              <main className="flex-1">
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/transactions" element={<Transactions />} />
-                  <Route path="/bills" element={<Bills />} />
-                  <Route path="/inventory" element={<Inventory />} />
-                  <Route path="/reports" element={<Reports />} />
-                  <Route path="/users" element={<Users />} />
-                  <Route path="/settings" element={<Settings />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
+          <TransactionProvider>
+            <div className="min-h-screen bg-biztrack-cream w-full">
+              <Navbar />
+              <div className="flex w-full">
+                <Sidebar />
+                <main className="flex-1">
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/transactions" element={<Transactions />} />
+                    <Route path="/bills" element={<Bills />} />
+                    <Route path="/inventory" element={<Inventory />} />
+                    <Route path="/reports" element={<Reports />} />
+                    <Route path="/users" element={<Users />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
+              </div>
             </div>
-          </div>
+          </TransactionProvider>
         </CurrencyProvider>
       </BrowserRouter>
     </TooltipProvider>

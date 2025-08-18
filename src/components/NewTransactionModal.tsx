@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Currency } from '@/types/transaction';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { useTransactions } from '@/contexts/TransactionContext';
 
 interface NewTransactionModalProps {
   open: boolean;
@@ -14,6 +15,7 @@ interface NewTransactionModalProps {
 
 export const NewTransactionModal = ({ open, onOpenChange }: NewTransactionModalProps) => {
   const { selectedCurrency } = useCurrency();
+  const { addTransaction } = useTransactions();
   const [formData, setFormData] = useState({
     type: '',
     account: '',
@@ -24,7 +26,21 @@ export const NewTransactionModal = ({ open, onOpenChange }: NewTransactionModalP
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Creating new transaction:', formData);
+    
+    if (!formData.type || !formData.account || !formData.category || !formData.amount) {
+      return;
+    }
+
+    addTransaction({
+      date: new Date().toLocaleDateString('en-GB'),
+      type: formData.type as 'Income' | 'Expense' | 'Transfer',
+      account: formData.account,
+      category: formData.category,
+      amount: parseFloat(formData.amount),
+      currency: selectedCurrency,
+      description: formData.description
+    });
+
     onOpenChange(false);
     setFormData({
       type: '',

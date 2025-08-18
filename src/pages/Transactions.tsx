@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { Search, Filter, ArrowUpDown } from 'lucide-react';
-import { useMockData } from '@/hooks/useMockData';
 import { TransactionsTable } from '@/components/TransactionsTable';
+import { useTransactions } from '@/contexts/TransactionContext';
 
 export const Transactions = () => {
-  const { transactions } = useMockData();
-  const [searchTerm, setSearchTerm] = useState('');
+  const { transactions, searchTerm: globalSearchTerm } = useTransactions();
+  const [localSearchTerm, setLocalSearchTerm] = useState('');
+
+  // Use global search term from navbar or local search term
+  const activeSearchTerm = globalSearchTerm || localSearchTerm;
 
   const filteredTransactions = transactions.filter(transaction =>
-    transaction.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    transaction.account.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    transaction.type.toLowerCase().includes(searchTerm.toLowerCase())
+    transaction.category.toLowerCase().includes(activeSearchTerm.toLowerCase()) ||
+    transaction.account.toLowerCase().includes(activeSearchTerm.toLowerCase()) ||
+    transaction.type.toLowerCase().includes(activeSearchTerm.toLowerCase())
   );
 
   return (
@@ -24,8 +27,8 @@ export const Transactions = () => {
             <input
               type="text"
               placeholder="Search transactions..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={localSearchTerm}
+              onChange={(e) => setLocalSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-biztrack-primary-blue"
             />
           </div>
