@@ -21,7 +21,16 @@ interface CurrencyProviderProps {
 }
 
 export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) => {
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>('USD');
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(() => {
+    // Try to load saved currency from localStorage
+    const savedCurrency = localStorage.getItem('selectedCurrency');
+    return (savedCurrency as Currency) || 'USD';
+  });
+
+  // Save currency to localStorage whenever it changes
+  React.useEffect(() => {
+    localStorage.setItem('selectedCurrency', selectedCurrency);
+  }, [selectedCurrency]);
 
   return (
     <CurrencyContext.Provider value={{ selectedCurrency, setSelectedCurrency }}>

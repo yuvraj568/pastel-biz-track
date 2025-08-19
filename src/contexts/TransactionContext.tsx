@@ -28,8 +28,17 @@ interface TransactionProviderProps {
 
 export const TransactionProvider: React.FC<TransactionProviderProps> = ({ children }) => {
   const mockData = useMockData();
-  const [transactions, setTransactions] = useState<Transaction[]>(mockData.transactions);
+  const [transactions, setTransactions] = useState<Transaction[]>(() => {
+    // Try to load saved transactions from localStorage
+    const savedTransactions = localStorage.getItem('transactions');
+    return savedTransactions ? JSON.parse(savedTransactions) : mockData.transactions;
+  });
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Save transactions to localStorage whenever they change
+  React.useEffect(() => {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+  }, [transactions]);
 
   const addTransaction = (newTransaction: Omit<Transaction, 'id'>) => {
     const transaction: Transaction = {
