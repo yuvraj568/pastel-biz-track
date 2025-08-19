@@ -28,10 +28,10 @@ export const BillPreviewModal = ({ open, onOpenChange, extractedData, fileName }
   const { addTransaction } = useTransactions();
   const { toast } = useToast();
 
-  const handleConfirm = async () => {
+  const handleConfirm = () => {
     try {
       // Add as expense transaction
-      await addTransaction({
+      addTransaction({
         description: editedData.description || `Bill from ${editedData.vendor}`,
         amount: editedData.amount,
         type: 'Expense',
