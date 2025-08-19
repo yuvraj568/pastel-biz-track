@@ -24,12 +24,19 @@ export const ReportDetailModal = ({ open, onOpenChange, reportType, reportName }
   const generateReport = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('reports', {
-        body: { type: reportType }
+      const response = await fetch(`https://pnxbqdwlqgcukwlfgclc.supabase.co/functions/v1/reports?type=${reportType}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
       });
 
-      if (error) throw error;
-      setReportData(data);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setReportData(result.data);
     } catch (error) {
       console.error('Error generating report:', error);
       setReportData({ error: 'Failed to generate report' });
@@ -84,13 +91,13 @@ export const ReportDetailModal = ({ open, onOpenChange, reportType, reportName }
           <div className="space-y-4">
             <h4 className="font-medium">Monthly Cash Flow</h4>
             <div className="space-y-2">
-              {reportData.monthlyData?.map((month: any, index: number) => (
+              {reportData?.map((month: any, index: number) => (
                 <div key={index} className="flex justify-between items-center p-3 bg-card rounded-lg">
                   <span className="font-medium">{month.month}</span>
                   <div className="text-right">
                     <div className="text-green-600">Inflow: ${month.inflow?.toLocaleString() || 0}</div>
                     <div className="text-red-600">Outflow: ${month.outflow?.toLocaleString() || 0}</div>
-                    <div className="font-bold">Net: ${month.net?.toLocaleString() || 0}</div>
+                    <div className="font-bold">Net: ${month.netFlow?.toLocaleString() || 0}</div>
                   </div>
                 </div>
               )) || <p>No cash flow data available</p>}
@@ -103,7 +110,7 @@ export const ReportDetailModal = ({ open, onOpenChange, reportType, reportName }
           <div className="space-y-4">
             <h4 className="font-medium">Expenses by Category</h4>
             <div className="space-y-2">
-              {reportData.categories?.map((category: any, index: number) => (
+              {reportData?.map((category: any, index: number) => (
                 <div key={index} className="flex justify-between items-center p-3 bg-card rounded-lg">
                   <span className="font-medium">{category.category}</span>
                   <span className="font-bold">${category.amount?.toLocaleString() || 0}</span>

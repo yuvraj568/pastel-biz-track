@@ -1,10 +1,9 @@
 import { Upload } from 'lucide-react';
 import { useFileUpload } from '@/hooks/useFileUpload';
-import { useMockData } from '@/hooks/useMockData';
+import { BillPreviewModal } from './BillPreviewModal';
 
 export const UploadBillsCard = () => {
-  const { isUploading, handleFileUpload } = useFileUpload();
-  const { parsedBills } = useMockData();
+  const { isUploading, extractedBill, handleFileUpload, clearExtractedBill } = useFileUpload();
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -47,29 +46,14 @@ export const UploadBillsCard = () => {
         </label>
       </div>
 
-      <div className="bg-biztrack-light-blue p-6 rounded-lg">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Parsed Bills</h3>
-        {parsedBills.map((bill, index) => (
-          <div key={index} className="space-y-2">
-            <div className="flex justify-between">
-              <span className="font-medium">Vendor</span>
-              <span>{bill.vendor}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Date</span>
-              <span>{bill.date}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Amount</span>
-              <span>{bill.currency} {bill.amount}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Category</span>
-              <span>{bill.category}</span>
-            </div>
-          </div>
-        ))}
-      </div>
+      {extractedBill && (
+        <BillPreviewModal
+          open={!!extractedBill}
+          onOpenChange={clearExtractedBill}
+          extractedData={extractedBill.data}
+          fileName={extractedBill.fileName}
+        />
+      )}
     </div>
   );
 };
